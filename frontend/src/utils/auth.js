@@ -140,8 +140,10 @@
 // };
 import { toast } from "react-hot-toast";
 
-// ✅ Backend URL (LIVE)
-const BASE_URL = "https://blood-bank-management-system-ldeb.onrender.com";
+// ✅ Backend URL (with fallback)
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://blood-bank-management-system-ldeb.onrender.com";
 
 // ✅ Handle auth error
 export const handleAuthError = (navigate) => {
@@ -177,7 +179,6 @@ export const makeAuthenticatedRequest = async (url, options = {}, navigate) => {
     Authorization: `Bearer ${token}`,
   };
 
-  // FormData case handle
   if (!(options.body instanceof FormData)) {
     headers["Content-Type"] = "application/json";
   }
